@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'CeraRoundPro';
+    font-style: normal;
+    font-weight: 700;
+    src: local('CeraRoundPro-Bold'), url('/fonts/TypeMates-CeraRoundPro-Bold.otf') format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'CeraRoundPro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('CeraRoundPro-Regular'), url('/fonts/TypeMates-CeraRoundPro-Regular.otf') format('opentype');
+  }
