@@ -103,10 +103,12 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 
         
         });
+        const absolutePath = `/healthclique/${communityName}`;
+
         handleClose();
         toggleMenuOpen();
-        router.push(`healthclique/${communityName}`)
-        } catch (error: any) {
+        router.push(absolutePath);
+      } catch (error: any) {
             console.log('handleCreateCommunity error', error);
             setError(error.message);
           }

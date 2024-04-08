@@ -26,23 +26,22 @@ const Navbar: React.FC = () => {
     >
       <Flex
         align="center"
-        width={{ base: "50px", md: "auto" }}
+        width={{ base: "100px", md: "auto" }}
         mr={{ base: 0, md: 2 }}
         cursor="pointer"
         onClick={() => onSelectMenuItem(defaultMenuItem)}
       >
         <Image
           src="/images/hq00.svg"
-          display={{ base: "none", md: "unset" }}
-          height="120px"
-          alt="Second Logo"
+          width="100px"
+          alt="First Logo"
           ml={2}
         />
         {!isSmallScreen && <Image src="/images/hq0.svg" height="140px" alt="Main logo" />}
       </Flex>
       {user && <Directory />}
       {user && <DatabaseDirectory />}
-      {!isverySmallScreen && <SearchInput user={user as User} />}
+      <SearchInput user={user as User} />
       <RightContent user={user as User} />
     </Flex>
   );
