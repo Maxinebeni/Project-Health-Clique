@@ -1,4 +1,4 @@
-import { Flex, Image, useMediaQuery, Spacer, Box } from "@chakra-ui/react";
+import { Flex, Image, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import SearchInput from "./SearchInput";
 import RightContent from "./RightContent/RightContent";
@@ -8,59 +8,42 @@ import Directory from "./Directory/Directory";
 import DatabaseDirectory from "./Directory/DatabaseDirectory";
 import useDirectory from "@/hooks/useDirectory";
 import { defaultMenuItem } from "@/atoms/directoryMenuAtom";
+import { User } from "firebase/auth";
 
 const Navbar: React.FC = () => {
   const [user] = useAuthState(auth);
   const { onSelectMenuItem } = useDirectory();
-  const [isSmallScreen] = useMediaQuery("(max-width: 768px)");
-  const [isTinyScreen] = useMediaQuery("(max-width: 480px)");
-
-  const shouldRenderSearchInput = !isSmallScreen;
-  const shouldRenderSecondLogo = !isSmallScreen && !isTinyScreen;
+  const [isSmallScreen] = useMediaQuery("(max-width: 500px)"); // Max width for small screens
+  const [isverySmallScreen] = useMediaQuery("(max-width: 414px)"); // Max width for very small screens
 
   return (
     <Flex
       bg="white"
       height="70px"
       padding="6px 12px"
-      justify="space-between"
+      justifyContent="space-between"
       alignItems="center"
-      mr={{ base: 0, md: 2 }}
     >
-      <Flex align="center" cursor="pointer">
-        {isSmallScreen ? (
-          // Show the first logo only on small screens
-          <Image
-            src="/images/2.png"
-            height="40px"
-            alt="Second Logo"
-            onClick={() => onSelectMenuItem(defaultMenuItem)}
-          />
-        ) : (
-          <>
-            <Image
-              src="/images/2.png"
-              height="40px"
-              alt="Second Logo"
-              mr={shouldRenderSecondLogo ? 2 : 0}
-              onClick={() => onSelectMenuItem(defaultMenuItem)}
-            />
-            {shouldRenderSecondLogo && (
-              <Image src="/images/3.png" height="46px" alt="Main logo" />
-            )}
-          </>
-        )}
-        {shouldRenderSearchInput && (
-          <Flex flexGrow={1} ml={2} mr={2}>
-            <SearchInput user={user} width={{ base: "100%", md: "auto" }} />
-          </Flex>
-        )}
+      <Flex
+        align="center"
+        width={{ base: "50px", md: "auto" }}
+        mr={{ base: 0, md: 2 }}
+        cursor="pointer"
+        onClick={() => onSelectMenuItem(defaultMenuItem)}
+      >
+        <Image
+          src="/images/hq00.svg"
+          display={{ base: "none", md: "unset" }}
+          height="120px"
+          alt="Second Logo"
+          ml={2}
+        />
+        {!isSmallScreen && <Image src="/images/hq0.svg" height="140px" alt="Main logo" />}
       </Flex>
-      {/* Spacer to evenly space the elements */}
-      <Spacer />
       {user && <Directory />}
       {user && <DatabaseDirectory />}
-      <RightContent user={user} />
+      {!isverySmallScreen && <SearchInput user={user as User} />}
+      <RightContent user={user as User} />
     </Flex>
   );
 };

@@ -19,15 +19,15 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
+import { authModalState } from "@/atoms/authModalAtom";
 
 
 
 const Home: NextPage =()=> {
 
   const [recommendedArticles, setRecommendedArticles] = useState<string[]>([]);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const closeSignUpModal = () => setIsSignUpModalOpen(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const setAuthModalState = useSetRecoilState(authModalState);
 
   const [userCred] = useAuthState(auth);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
@@ -195,45 +195,20 @@ const Home: NextPage =()=> {
   }, [postStateValue.posts, user?.uid]);
 
 
-  useEffect(() => {
-    if (userCred) {
-      setShowSignUpModal(true);
-    }
-  }, [userCred]);
-
-  const handleCloseSignUpModal = () => {
-    setShowSignUpModal(false);
-  };
-
-  useEffect(() => {
-    if (user) {
-      setBackgroundImage(`url('/images/f_page.png')`);
-    } else {
-      setBackgroundImage("none");
-    }
-  }, [user]);
 
 
 
-  useEffect(() => {
-    if (user) {
-      setBackgroundImage(`url('/images/f_page.png')`);
-    } else {
-      setBackgroundImage("none");
-    }
-  }, [user]);
 
 
   return (
     <div
     style={{
-      backgroundImage: user
-      ? `url('/images/f_page.png')`
-      : "none",
-backgroundSize: "cover",
+      backgroundColor: user
+      ? "gray.100"
+      : "gray.100",
+      backgroundSize: "cover",
       backgroundPosition: "center",
-      minHeight: "100vh", // Ensure the background covers the entire page height
-      backgroundColor: "gray.100", // Add background color here
+      minHeight: "100vh", 
 
     }}
   >
@@ -272,8 +247,6 @@ backgroundSize: "cover",
        <News/>
     </Stack>
   </PageContent>
-  <SignUpModal isOpen={showSignUpModal} onClose={handleCloseSignUpModal} />
-
   </div>
 
 );

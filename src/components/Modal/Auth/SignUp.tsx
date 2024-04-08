@@ -7,16 +7,11 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { FIREBASE_ERRORS } from "@/firebase/errors";
 import { addDoc, collection } from "firebase/firestore";
 import { User } from "firebase/auth";
-import SignUpModal from "../SignUpModal";
-
-
 
 
   
 const SignUp = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const setAuthModalState =useSetRecoilState(authModalState);
-    const [showSignUpModal, setShowSignUpModal] = useState(false); // State to control modal visibility
-
 
     const [SignUpForm, setSignUpForm] = useState({
         email: "",
@@ -63,15 +58,14 @@ const SignUp = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =
       useEffect(() => {
         if (userCred) {
           createUserDocument(userCred.user);
-          setShowSignUpModal(true);
         }
       }, [userCred]);
-    
-    
-        
+
+
       
     
-  
+    
+
     return (
       <>
       <form onSubmit={onSubmit}>
@@ -169,7 +163,6 @@ const SignUp = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =
        >LOG IN</Text>
       </Flex>
       </form>
-      <SignUpModal isOpen={isOpen} onClose={onClose} />
 
      </>
 
