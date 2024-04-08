@@ -113,7 +113,7 @@ const Login: React.FC<LoginProps> = () => {
         </Text>
       </Flex>
         <Flex fontSize="9pt" justifyContent="center" mb={2}>
-        <Text mr={1} fontWeight={500}>Not part of the Clique yet? </Text>
+        <Text mr={1} fontWeight={500}>No Account? </Text>
         <Text color="blue.500" fontWeight={700} cursor="pointer" 
          onClick={() => setAuthModalState((prev) => ({
             ...prev,

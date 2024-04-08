@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
       </Flex>
       {user && <Directory />}
       {user && <DatabaseDirectory />}
-      <SearchInput user={user as User} />
+      {!isverySmallScreen &&  <SearchInput user={user as User} />}
       <RightContent user={user as User} />
     </Flex>
   );
