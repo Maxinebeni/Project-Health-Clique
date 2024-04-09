@@ -44,6 +44,8 @@ const About: React.FC<AboutProps> = ({
   const selectFileRef = useRef<HTMLInputElement>(null);
   const setCommunityStateValue = useSetRecoilState(communityState);
   const {selectedFile, setSelectedFile, onSelectFile} = useSelectFile();
+  const [description, setDescription] = useState<string>("");
+
 
 
 
@@ -111,9 +113,11 @@ const About: React.FC<AboutProps> = ({
                 border="1px solid"
                 borderColor="gray.300"
                 cursor="pointer"
+                maxWidth="300px"
               >
-                <Text fontSize="9pt" fontWeight={700} color="blue.500">
-                  Add description
+                <Text fontSize="9pt" fontWeight={700} color="blue.500"  whiteSpace="normal" wordBreak="break-all"
+>
+                {communityData?.description || "Add description"}
                 </Text>
               </Box>
             )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Checkbox, Divider, Flex, Icon, Input, MenuItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Divider, Flex, Icon, Input, MenuItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from "@chakra-ui/react";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { doc, getDocs, collection, where, query, runTransaction, serverTimestamp } from "firebase/firestore";
@@ -19,6 +19,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 
     const [user] = useAuthState(auth);
     const [communityName, setCommunityName] = useState('');
+    const [description, setDescription] = useState('');
+
     const [charsRemaining, setCharsRemaining] = useState(21);
     const [communityType, setCommunityType] = useState("public");
     const [error, setError] = useState("");
@@ -88,7 +90,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             creatorId: user?.uid,
             createdAt: serverTimestamp(),
             numberOfMembers: 1,
-            privacyType: communityType,       
+            privacyType: communityType,
+            description: description, // Add description field
+     
          });
         //  create community snippet
         transaction.set(
@@ -153,12 +157,30 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             fontSize="9pt"
             color={charsRemaining === 0 ? "red" : "gray.500"}
             pt={2}
+            mb={2}
           >
             {charsRemaining} Characters remaining
           </Text>
           <Text fontSize="9pt" color="red" pt={1}>
             {error}
           </Text>
+          <Text
+            color="gray.400"
+            fontSize ={11}
+            mb = {2}
+          >
+            Enter Community Description
+          </Text>
+          <Textarea
+             value={description}
+             position="relative"
+             onChange={(event) => setDescription(event.target.value)}
+             fontSize="9pt"
+             size="sm"
+             pl="22px"
+             rows = {3}
+ 
+/>
           <Box  mt={4} mb={4}>
             <Text fontWeight={600} fontSize={15}>
                 Community Type

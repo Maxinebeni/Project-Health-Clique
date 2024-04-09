@@ -161,24 +161,49 @@ const CreateDatabaseModal: React.FC<CreateDatabaseModalProps> = ({
   
     try {
       const response = await fetch(
-        "https://flask-app-gove.onrender.com/classify",
+        "https://article-api-0ktg.onrender.com/classify",
         { ...requestOptions, body: formData }
       );
       const data = await response.json();
   
       if (response.ok) {
-        const { prediction_message, summary } = data;
+        const { prediction_message, summary, title, pdfURL, url } = data;
   
         if (!summary) {
           setError("Article not health-related. Please try again.");
           setIsLoading(false);
           return;
         }
-  
+
         setMessage(prediction_message);
         if (summary) {
           setSummary(summary);
         }
+
+        // Save article data to Firestore
+        const currentUser: User | null = auth.currentUser;
+        if (currentUser) {
+          const articleData = {
+            creatorDisplayName: user?.email!.split("@")[0],
+            creatorId: currentUser.uid,
+            createdAt: serverTimestamp(),
+            pdfURL: pdfURL || "", // Set pdfURL to the value received from the API, or an empty string if it's undefined
+            summary: summary,
+            title: option === "url" ? newArticleNameUrl : newArticleNamePdf,
+            url: newArticleLink || "",
+
+                  };
+  
+          try {
+            // Add a new document to the Firestore collection named "articleposts"
+            const docRef = await addDoc(collection(firestore, "articleposts"), articleData);
+            console.log("Document written with ID: ", docRef.id);
+          } catch (error) {
+            console.error("Error adding document: ", error);
+          }
+        }
+  
+        setMessage(prediction_message);
   
         // Set loading to false here
         setIsLoading(false);
@@ -208,7 +233,7 @@ const CreateDatabaseModal: React.FC<CreateDatabaseModalProps> = ({
   
     setLoading(false);
   };
-  
+
   useEffect(() => {
     if (open) {
       setArticleNameUrl('');
