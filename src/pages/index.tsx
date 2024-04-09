@@ -42,7 +42,7 @@ const Home: NextPage =()=> {
     const fetchRecommendedArticles = async () => {
       try {
         // Fetch recommended articles from API or other data source
-        const response = await fetch("https://api.example.com/recommended-articles");
+        const response = await fetch("https://articles-f08q.onrender.com/");
         if (response.ok) {
           const data = await response.json();
           setRecommendedArticles(data);
@@ -113,7 +113,7 @@ const Home: NextPage =()=> {
     try {
       const postQuery = query(
         collection(firestore, "posts"),
-        orderBy("voteStatus", "desc"),
+        orderBy("createdAt", "desc"),
         limit(10)
       );
       const postDocs = await getDocs(postQuery);
