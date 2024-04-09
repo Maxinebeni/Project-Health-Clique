@@ -217,7 +217,6 @@ const ArticlePostsPage: React.FC = () => {
   return (
     <div
     style={{
-      backgroundImage: "url('/images/articles.png')", // Assuming your image is located in the public/images directory
       backgroundSize: "cover",
       backgroundPosition: "center",
       minHeight: "100vh", // Ensure the background covers the entire page height
@@ -243,6 +242,8 @@ const ArticlePostsPage: React.FC = () => {
                 width="100%"
                 pr={6}
                 pl={6}
+                overflowX="auto" // Ensure horizontal scrolling if content overflows
+
               >
 {Object.entries(categorizeArticles()).map(([letter, posts]) => (
   <Flex key={letter} direction="column" mb={4}>

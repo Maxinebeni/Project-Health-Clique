@@ -2,7 +2,7 @@ import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Menu, MenuButton, Button, MenuList, MenuItem, Icon, Flex, MenuDivider } from "@chakra-ui/react";
 import { User, signOut } from "firebase/auth";
 import { set } from "firebase/database";
-import React from "react";
+import React, { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogin } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
@@ -17,6 +17,7 @@ import { FaNewspaper } from "react-icons/fa";
 import { MdOutlineGroups3 } from "react-icons/md";
 import router from "next/router";
 import { IoHomeOutline } from "react-icons/io5";
+import ProfileModal from "@/components/Modal/ProfileModal";
 
 
 
@@ -47,7 +48,12 @@ user?: User | null;
 const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
     const setAuthModalState = useSetRecoilState(authModalState);
     const resetCommunityState = useResetRecoilState(communityState);
-    
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
+    const handleProfileClick = () => {
+      setIsProfileModalOpen(true); // Open the profile modal
+    };
+  
 
 
     const logout = async () => {
@@ -57,6 +63,8 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
   
 
     return(
+      <>
+
       <Menu>
         <MenuButton cursor='pointer' padding ='0px 6px' borderRadius={4} _hover={{outline: '1px solid', outlineColor: 'blue.200'}}>
         <Flex align= 'center'>
@@ -94,6 +102,7 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
                 // fontSize="10pt"
                 fontWeight={600}
                 _hover={{bg: "blue.500", color: "white"}}
+                onClick={handleProfileClick} // Handle click event to open modal
                 >
                 <Flex align= "center" >
                 <Icon fontSize={20} mr={2} as={CgProfile} color="gray.400"/>
@@ -102,7 +111,6 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
                     </MenuItem>
                     <MenuDivider color= "blue.100"/>
                     <MenuItem
-                  //  fontSize="10pt"
                  fontWeight={600}
                 _hover={{bg: "blue.500", color: "white"}}
                 onClick={handlehome} // Handle click event to open modal
@@ -184,6 +192,8 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
             )}
  </MenuList>
 </Menu>
+      <ProfileModal isOpen={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)} userData={user} />
+</>
 
     );
 };
