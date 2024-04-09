@@ -21,6 +21,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilValue } from "recoil";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtom";
+import PostCreateLink from "@/components/Community/PostCreateLink";
 
 
 
@@ -214,7 +215,7 @@ const Home: NextPage =()=> {
   >
     <PageContent>
     <>
-    <CreatePostLink/>
+    <PostCreateLink/>
       {loading ? (
         <PostLoader />
       ) : (

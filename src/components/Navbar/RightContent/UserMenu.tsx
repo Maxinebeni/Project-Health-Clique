@@ -18,6 +18,8 @@ import { MdOutlineGroups3 } from "react-icons/md";
 import router from "next/router";
 import { IoHomeOutline } from "react-icons/io5";
 import ProfileModal from "@/components/Modal/ProfileModal";
+import { FaChartBar } from 'react-icons/fa';
+
 
 
 
@@ -53,6 +55,11 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
     const handleProfileClick = () => {
       setIsProfileModalOpen(true); // Open the profile modal
     };
+
+    const handleHomeRedirect = () => {
+      router.push("https://healthc.vercel.app/");
+    };
+    
   
 
 
@@ -117,8 +124,8 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
 
                 >
                 <Flex align= "center" >
-                <Icon fontSize={20} mr={2} as={IoHomeOutline  } color="gray.400"/>
-                    Home   
+                <Icon fontSize={20} mr={2} as={ FaChartBar } color="gray.400"/>
+                    Dashboard  
                     </Flex>
                     </MenuItem>
                     <MenuDivider/>
@@ -159,6 +166,18 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
                 <Flex align= "center" >
                 <Icon fontSize={20} mr={2} as={FaNewspaper } color="gray.400"/>
                     News      
+                    </Flex>
+                    </MenuItem>
+                    <MenuDivider/>
+                    <MenuItem
+                 fontWeight={600}
+                _hover={{bg: "blue.500", color: "white"}}
+                onClick={handleHomeRedirect} // Handle click event to redirect
+
+                >
+                <Flex align= "center" >
+                <Icon fontSize={20} mr={2} as={IoHomeOutline} color="gray.400"/>
+                    Home      
                     </Flex>
                     </MenuItem>
                     <MenuDivider/>

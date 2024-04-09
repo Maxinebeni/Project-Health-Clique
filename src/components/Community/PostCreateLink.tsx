@@ -9,7 +9,7 @@ import { authModalState } from "@/atoms/authModalAtom";
 import useDirectory from "@/hooks/useDirectory";
 import { useRouter } from "next/router";
 
-const CreatePostLink: React.FC = () => {
+const PostCreateLink: React.FC = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
@@ -47,7 +47,7 @@ const CreatePostLink: React.FC = () => {
     >
       <Icon as={FaUserDoctor} fontSize={32} color="gray.400" mr={4} />
       <Input
-        placeholder="Create Post"
+        placeholder="Click to Join/Create Community to post"
         fontSize="10pt"
         _placeholder={{ color: "gray.500" }}
         _hover={{
@@ -83,4 +83,4 @@ const CreatePostLink: React.FC = () => {
   );
 };
 
-export default CreatePostLink;
+export default PostCreateLink;

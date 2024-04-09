@@ -7,6 +7,7 @@ import { auth } from "../../firebase/clientApp";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "../../atoms/authModalAtom";
 import Image from "next/image";
+import router from "next/router";
 
 const PersonalHome: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,11 +26,13 @@ const PersonalHome: React.FC = () => {
     setIsModalOpen(false);
   };
 
+
+
   const handleCreatePostClick = () => {
     if (!user) {
       setAuthModalState({ open: true, view: "login" });
     } else {
-      // Handle create post logic
+      router.push('/healthclique/allCommunities');
     }
   };
 
@@ -80,7 +83,7 @@ const PersonalHome: React.FC = () => {
               bg="brand.100"
               onClick={handleCreatePostClick} // Add onClick handler
             >
-              Create Post
+              Join Community
             </Button>
           </Flex>
           <Flex>
