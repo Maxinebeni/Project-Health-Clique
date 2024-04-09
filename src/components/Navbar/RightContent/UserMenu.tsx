@@ -59,8 +59,8 @@ const UserMenu: React.FC<UserMenuProps> = ({user})  =>{
     const logout = async () => {
       await signOut(auth);
       resetCommunityState();
-    };
-  
+      router.push("/"); // Redirect to home page after logging out
+    };  
 
     return(
       <>
